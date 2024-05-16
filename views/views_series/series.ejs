@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs'); %>
+</head>
+<header>
+    <%- include('../partials/header.ejs'); %>
+</header>
+<body>
+<h1> series lista</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>estat</th>
+        <th>imatge</th>
+        <th>Accions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% series.forEach( function (serie){ %>
+
+        <tr>
+            <td> <%= serie.nom %></td>
+            <td> <%= serie.estat %></td>
+            <td><img src="<%= serie.imatge %>"></td>
+
+            <td>
+                <a href="/series/<%= serie._id %>">Veure detalls</a>
+                <a href="#" class="delete-link" data-series-id="<%= serie._id %>">Delete</a>
+                <a href="/series/update/<%= serie._id %>">Update</a>
+            </td>
+        </tr>
+    <% } ) %>
+
+    </tbody>
+
+    <script>
+
+        async function delete_group(event) {
+            event.preventDefault();
+            let serieId = this.getAttribute('data-series-id')
+
+            var url = '/series/' + serieId;
+            console.log('url' + url)
+            try {
+                const response = await fetch(url, {
+                    method: 'DELETE'
+                });
+
+                window.location.reload();
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
+        $(document).ready(function () {
+            $('.delete-link').on('click', delete_group);
+        });
+
+    </script>
+
+</table>
+</body>
+</html>

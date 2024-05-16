@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs'); %>
+</head>
+<header>
+    <%- include('../partials/header.ejs'); %>
+</header>
+<body>
+<h1>Insert temporada</h1>
+<main style="text-align: center">
+    <form action="/temporadas" method="post">
+        <label for="series_id">Escull una serie per afegir la temporada:</label>
+        <select name="series_id" id="series_id">
+            <% temporadas.forEach( function (tempo){ %>
+                <option value="<%= tempo.series_id %>"><%= tempo.series_id %></option>
+            <% } ) %>
+        </select>
+        <br>
+        <br>
+        <label for="temporada">Numero de temporada:</label>
+        <br>
+        <input type="number" min="0" id="temporada" name="temporada" placeholder="Introdueix el numero de temporada">
+        <br>
+        <br>
+        <label for="estat">estat:</label>
+        <br>
+        <select id="estat" name="estat">
+            <option value="enEmisio">En Emisio</option>
+            <option value="finalitzat">Finalitzat</option>
+        </select>
+        <br>
+        <br>
+        <label for="imatge">Imatge:</label>
+        <br>
+        <input type="text" id="imatge" name="imatge" placeholder="Introdueix la url de imatge de la serie">
+        <br>
+        <br>
+        <label for="descripcio">Descripcio:</label>
+        <br>
+        <textarea id="descripcio" name="descripcio" placeholder="Introdueix la descripcio de la serie"></textarea>
+        <br>
+        <br>
+        <label for="enllac">Enllac:</label>
+        <br>
+        <input type="text" id="enllac" name="enllac" placeholder="Introdueix el enllac de la serie">
+        <br>
+        <br>
+        <label for="episodis">Episodis:</label>
+        <br>
+        <input type="number" min="0" id="episodis" name="episodis" placeholder="Introdueix el numero de episodis de la serie">
+        <br>
+        <br>
+        <label for="valoracio">Valoracio:</label>
+        <br>
+        <input type="number" min="0" max="10" id="valoracio" name="valoracio"
+               placeholder="Introdueix entre el numero 0 i 10 de valoracio de temporada">
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</main>
+</body>
+</html>

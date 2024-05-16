@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <style>
+        <%- include('./partials/head.ejs'); %>
+    </style>
+</head>
+
+<body>
+<header>
+    <%- include('./partials/header.ejs'); %>
+</header>
+<main style="text-align: center">
+    <h1>Gracies per enviar el correu
+        ens posarem en contacte amb aquest correu: <br> <%= camps.Email%></h1>
+    <h3>Dades rebudes</h3>
+    <p>Nom: <%= camps.fname %></p>
+    <p>Cognom: <%= camps.lname %></p>
+    <p>Email: <%= camps.Email %></p>
+    <p>Numero de telefon: <%= camps.num %></p>
+    <p>Missatge: <%= camps.msg %></p>
+
+
+</main>
+
+</body>
+
+</html>

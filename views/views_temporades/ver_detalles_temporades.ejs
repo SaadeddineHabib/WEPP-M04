@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs'); %>
+</head>
+<header>
+    <%- include('../partials/header.ejs'); %>
+</header>
+<body>
+<h1> Items list</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Temporada</th>
+        <th>estat</th>
+        <th>imatge</th>
+        <th>Descripcio</th>
+        <th>Enllac</th>
+        <th>Episodis</th>
+        <th>Valoracio</th>
+        <th>Accions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td> <%= tempo.temporada %></td>
+        <td> <%= tempo.estat %></td>
+        <td><img src="<%= tempo.imatge %>"></td>
+        <td><p> <%= tempo.descripcio %> </p></td>
+        <td><a href="<%= tempo.enllac %>">Enlace</a></td>
+        <td><p><%= tempo.episodis %></p></td>
+        <td><p><%= tempo.valoracio %>/10</p></td>
+        <td>
+            <a href="#" class="delete-link" data-temporada-id="<%= tempo._id %>">Delete</a>
+            <a href="/temporadas/update/<%= tempo._id %>">Update</a>
+        </td>
+    </tr>
+    </tbody>
+
+
+    <script>
+
+        async function delete_group(event) {
+            event.preventDefault();
+            let temporadaId = this.getAttribute('data-temporada-id')
+            console.log(temporadaId)
+            var url = '/temporadas/' + temporadaId;
+            console.log('url' + url)
+            try {
+                const response = await fetch(url, {
+                    method: 'DELETE'
+                });
+                window.location.assign("/temporadas");
+
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
+        $(document).ready(function () {
+            $('.delete-link').on('click', delete_group);
+        });
+
+    </script>
+</table>
+</body>
+</html>

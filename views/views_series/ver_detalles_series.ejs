@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs'); %>
+</head>
+<header>
+    <%- include('../partials/header.ejs'); %>
+</header>
+<body>
+<h1> Items list</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Estat</th>
+        <th>Imatge</th>
+        <th>Descripcio</th>
+        <th>Idioma</th>
+        <th>Enllac</th>
+        <th>Accions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td> <%= serie.nom %></td>
+        <td> <%= serie.estat %></td>
+        <td><img src="<%= serie.imatge %>"></td>
+        <td><p> <%= serie.descripcio %> </p></td>
+        <td><p><%= serie.idioma %></p></td>
+        <td><a href="<%= serie.enllac %>">Enlace</a></td>
+        <td>
+            <a href="#" class="delete-link" data-series-id="<%= serie._id %>">Delete</a>
+            <br>
+            <a href="/series/update/<%= serie._id %>">Update</a>
+        </td>
+    </tr>
+    </tbody>
+
+
+    <script>
+
+        async function delete_group(event) {
+            event.preventDefault();
+            let serieId = this.getAttribute('data-seriesRender-id')
+            console.log(serieId)
+            var url = '/seriesRender/' + serieId;
+            console.log('url' + url)
+            try {
+                const response = await fetch(url, {
+                    method: 'DELETE'
+                });
+                window.location.assign("/series");
+
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
+        $(document).ready(function () {
+            $('.delete-link').on('click', delete_group);
+        });
+
+    </script>
+</table>
+<% if (serie.temporadas.length === 0) { %>
+    <p>No te temporadas assignadas</p>
+<% } else { %>
+    <table>
+        <thead>
+        <tr>
+            <th>Temporada</th>
+            <th>estat</th>
+            <th>imatge</th>
+            <th>Descripcio</th>
+            <th>Accions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% serie.temporadas.forEach( function (tempo){ %>
+
+            <tr>
+                <td> <%= tempo.temporada %></td>
+                <td> <%= tempo.estat %></td>
+                <td><img src="<%= tempo.imatge %>"></td>
+                <td> <%= tempo.descripcio %></td>
+                <td>
+                    <a href="/temporadas/<%= tempo._id %>">Veure detalls</a>
+                </td>
+            </tr>
+        <% } ) %>
+        <tbody>
+    </table>
+<% } %>
+
+</body>
+</html>

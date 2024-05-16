@@ -1,0 +1,40 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+ nav {
+   text-align: center;
+ }
+
+
+a {
+  padding: 10px;
+  background-color: cornflowerblue;
+  text-decoration: none;
+  color: white;
+}
+
+thead {
+  background-color: #00B7FF;
+  padding: 30px;
+}
+
+td {
+  font-size: large;
+  padding: 10px;
+}
+
+img {
+  width: 45%;
+}
+
+th {
+  padding: 10px;
+  font-size: large;
+  color: white;
+}

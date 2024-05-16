@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs'); %>
+</head>
+<header>
+    <%- include('../partials/header.ejs'); %>
+</header>
+<body>
+<h1> Temporada list</h1>
+<main style="text-align: center">
+    <form action="/temporadas/update" method="post">
+        <br>
+        <label for="temporada">Numero de temporada:</label>
+        <br>
+        <input type="number" min="0" id="temporada" name="temporada" value="<%= tempo.temporada %>">
+        <br>
+        <br>
+        <label for="estat">estat:</label>
+        <br>
+        <p>Estat actual: <%= tempo.estat %></p>
+        <select id="estat" name="estat">
+            <% if (tempo.estat === 'enEmisio'){ %>
+                <option value="enEmisio" selected>En Emisio</option>
+                <option value="finalitzat">Finalitzat</option>
+            <% } else { %>
+                <option value="finalitzat" selected>Finalitzat</option>
+                <option value="enEmisio">En Emisio</option>
+            <% } %>
+        </select>
+        <br>
+        <br>
+        <label for="serieOfTempo">Escull una serie per afegir la temporada:</label>
+        <select name="serieOfTempo" id="serieOfTempo">
+            <% let optionAdded = false; %>
+            <% series.forEach( function (serie){ %>
+                <% serie.temporadas.forEach( function (tempoOnSerie) { %>
+                    <% if (tempo._id.equals(tempoOnSerie._id) && !optionAdded) { %>
+                        <option value="<%= serie._id %>" selected><%= serie.nom %></option>
+                        <% optionAdded = true; %>
+                    <% } %>
+                <% } ) %>
+                <% if (!optionAdded) { %>
+                    <option value="<%= serie._id %>"><%= serie.nom %></option>
+                <% } %>
+                <% optionAdded = false; %>
+            <% } ) %>
+        </select>
+        <br>
+        <br>
+        <label for="imatge">imatge:</label>
+        <br>
+        <input type="text" id="imatge" name="imatge" value="<%= tempo.imatge %>">
+        <br>
+        <br>
+        <label for="descripcio">Descripcio:</label>
+        <br>
+        <textarea id="descripcio" name="descripcio"><%= tempo.descripcio %></textarea>
+        <br>
+        <br>
+        <label for="enllac">Enllac:</label>
+        <br>
+        <input type="text" id="enllac" name="enllac" value="<%= tempo.enllac %>">
+        <br>
+        <br>
+        <label for="episodis">Episodis:</label>
+        <br>
+        <input type="number" min="0" id="episodis" name="episodis" value="<%= tempo.episodis %>">
+        <br>
+        <br>
+        <label for="valoracio">Valoracio:</label>
+        <br>
+        <input type="number" min="0" max="10" id="valoracio" name="valoracio"
+               value="<%= tempo.valoracio %>">
+        <br>
+        <br>
+        <input type="hidden" name="id" value="<%= tempo._id %>">
+        <input type="submit" value="Submit">
+    </form>
+</main>
+</body>
+</html>

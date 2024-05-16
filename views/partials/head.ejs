@@ -1,0 +1,234 @@
+<meta charset="UTF-8">
+<title><%= title %></title>
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: black;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, label {
+        color: white;
+    }
+
+    .border-bottom {
+        border-bottom: 1px blue solid;
+    }
+
+    nav {
+        text-align: center;
+    }
+
+    nav img {
+        display: inline-block;
+        width: 50px;
+        border-radius: 20%;
+        border-right: 1px blue solid;
+        border-left: 1px blue solid;
+        box-shadow: 0px 7px 10px -2px blue;
+        float: left;
+        margin: 0.5%;
+    }
+
+    a, .sub-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-bottom: 3%;
+        margin-right: 1%;
+        margin-top: 1%;
+        background: black;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        border-right: 1px blue solid;
+        border-left: 1px blue solid;
+        box-shadow: 0px 7px 10px -2px blue;
+        font-weight: bold;
+    }
+
+    a:hover, .sub-btn:hover {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-bottom: 3%;
+        margin-right: 1%;
+        margin-top: 1%;
+        background: blue;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        border-right: 1px white solid;
+        border-left: 1px white solid;
+        box-shadow: 0px 7px 10px -2px white;
+        font-weight: bold;
+    }
+
+    .tags-containter a {
+        margin-right: 4%;
+    }
+
+    .justify {
+        text-align: justify;
+        word-spacing: 4px;
+    }
+
+    .center {
+        text-align: center
+    }
+
+    .centerM {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+
+    img {
+        width: 45%;
+    }
+
+    .card {
+        background: black;
+        margin: 2vw;
+        width: 15%;
+        text-align: center;
+        display: inline-block;
+        border-radius: 10px;
+        box-shadow: 0px 7px 10px -2px blue;
+    }
+
+    .card a {
+        margin-bottom: 10%;
+    }
+
+    .card img {
+        border-radius: 10px;
+    }
+
+    .card:hover {
+        background: black;
+        margin: 2vw;
+        width: 15%;
+        text-align: center;
+        display: inline-block;
+        border-radius: 10px;
+        box-shadow: 0px 10px 20px -2px blue;
+    }
+
+    .left:hover, .right:hover {
+        box-shadow: 0px 0px 30px -2px blue;
+    }
+
+    .left {
+        flex: 20%;
+        margin: 10px;
+        padding: 10px;
+        box-shadow: 0px 0px 20px -2px blue;
+        border-right: 1px blue solid;
+        border-left: 1px blue solid;
+        border-radius: 10px;
+
+    }
+
+    .right {
+        flex: 75%;
+        margin: 10px;
+        padding: 30px;
+        box-shadow: 0px 0px 20px -2px blue;
+        border-right: 1px blue solid;
+        border-left: 1px blue solid;
+        border-radius: 10px;
+
+    }
+
+
+    .flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+
+    form {
+        display: inline-block;
+        border-radius: 10px;
+        padding: 15px;
+        border: 1px blue solid;
+        min-width: 250px;
+        width: 50%;
+        margin-top: 5%;
+        box-shadow: 0px 20px 10px -2px blue;
+
+
+    }
+
+    h2 {
+        margin: 0px;
+    }
+
+    label {
+        float: left;
+        padding: 5px 5px;
+        font-weight: bold;
+    }
+
+    input[type=text], input[type=number], input[type=email], textarea {
+        padding: 10px 10px;
+        width: 100%;
+        border: 1px lightgray solid;
+        border-radius: 5px;
+
+    }
+
+    textarea {
+        height: 150%;
+    }
+
+    input[type=text]:focus, input[type=number]:focus, input[type=email]:focus, textarea:focus {
+        outline: none;
+        box-shadow: 0px 0px 10px 1px #008cff;
+        border: 1px lightgray solid;
+        border-radius: 5px;
+    }
+
+
+    @media (max-width: 700px) {
+        .flex {
+            flex-direction: column;
+
+        }
+
+        a, .sub-btn {
+            width: 100%;
+        }
+
+        .card, .card:hover {
+            width: 100%;
+            margin: 10px 0px
+        }
+    }
+
+
+    thead {
+        background-color: blue;
+        padding: 30px;
+    }
+
+    td {
+        font-size: large;
+        padding: 10px;
+        color: white;
+    }
+
+
+    th {
+        padding: 10px;
+        font-size: large;
+        color: white;
+    }
+
+    .center {
+        text-align: center;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

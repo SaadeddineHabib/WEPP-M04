@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs'); %>
+</head>
+<header>
+    <%- include('../partials/header.ejs'); %>
+</header>
+<body>
+<h1>Insertar serie</h1>
+<main style='text-align: center'>
+    <form action="/series" method="post">
+        <label for="nom">Serie's name:</label><br>
+        <input type="text" id="nom" name="nom" placeholder="Introdueix el nom de la serie">
+        <br>
+        <br>
+        <label for="estat">estat:</label>
+        <br>
+        <select id="estat" name="estat">
+            <option value="enEmisio">En Emisio</option>
+            <option value="finalitzat">Finalitzat</option>
+        </select>
+        <br>
+        <br>
+        <label for="imatge">Imatge:</label>
+        <br>
+        <input type="text" id="imatge" name="imatge" placeholder="Introdueix la url de imatge de la serie">
+        <br>
+        <br>
+        <label for="idioma">Idioma:</label>
+        <br>
+        <input type="text" id="idioma" name="idioma" placeholder="Introdueix el idioma de la serie">
+        <br>
+        <br>
+        <label for="enllac">Enllac:</label>
+        <br>
+        <input type="text" id="enllac" name="enllac" placeholder="Introdueix el enllac de la serie">
+        <br>
+        <br>
+        <label for="descripcio">Descripcio:</label>
+        <br>
+        <textarea id="descripcio" name="descripcio" placeholder="Introdueix la descripcio de la serie"></textarea>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</main>
+</body>
+</html>
