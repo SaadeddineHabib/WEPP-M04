@@ -17,23 +17,30 @@ router.post('/api/temporadas/:id', async (req, res) => {
         valoracio: valoracio
     }
 
-    let filterTemporadaOnSerie = {
-        "temporadas._id": id
-    }
-
     let filterToSelect = {_id: id}
 
     try {
         const temporada = await Temporada.findOneAndUpdate(filterToSelect, filterToUpdate, {new: true})
-        const serie = await Serie.findOne(filterTemporadaOnSerie);
-        serie.temporadas.pull(filterToSelect)
-        serie.temporadas.push(temporada)
-        await serie.save();
+        await addTemporadaToSerie(temporada)
         res.send(temporada)
     } catch (e) {
         console.log(e)
         res.send({success: false, message: 'ERROR' + e.message});
     }
 });
+
+
+async function addTemporadaToSerie(temporada) {
+    let filterTemporadaOnSerie = {
+        "temporadas._id": temporada._id
+    }
+
+    let filterToSelect = {_id: temporada._id}
+
+    const serie = await Serie.findOne(filterTemporadaOnSerie);
+    serie.temporadas.pull(filterToSelect)
+    serie.temporadas.push(temporada)
+    await serie.save();
+}
 
 module.exports = router;

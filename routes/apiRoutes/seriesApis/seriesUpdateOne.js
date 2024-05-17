@@ -18,26 +18,14 @@ router.post('/api/series/:id', async (req, res) => {
     }
     let filterToSelect = {_id: id}
 
-    // let filterToUpdateSerieInsideTemporades = {
-    //     "serie.nom": nom,
-    //     "serie.estat": estat,
-    //     "serie.imatge": imatge,
-    //     "serie.descripcio": descripcio,
-    //     "serie.idioma": idioma,
-    //     "serie.enllac": enllac
-    // }
-
-
-    // let filterToSelectSerieOnTemporadas = {"serie._id": id}
-
     try {
         const result = await Serie.findOneAndUpdate(filterToSelect, filterToUpdate)
 
         if (!result) {
-            res.send("la serie amb el id  " + id + " no s'ha trobat")
+            return res.send("la serie amb el id  " + id + " no s'ha trobat")
+        } else {
+            return res.send(result)
         }
-
-        res.send(result)
     } catch (e) {
         console.log(e)
         res.send({success: false, message: e.message});

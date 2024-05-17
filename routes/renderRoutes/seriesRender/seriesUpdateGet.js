@@ -9,10 +9,10 @@ router.get('/series/update/:id', async (req, res) => {
     let filter = {_id: id}
 
     try {
-        const series = await Serie.find(filter)
+        const serie = await Serie.findOne(filter)
         const options = {
-            title: 'Actualitzar serie | Netflow',
-            serie: series[0]
+            title: 'Actualitzar ' + serie.nom + ' | Netflow',
+            serie: serie
         }
         res.render('./views_series/actualitzar_series.ejs', options)
     } catch (e) {

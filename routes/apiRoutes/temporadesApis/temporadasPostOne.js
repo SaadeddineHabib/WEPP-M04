@@ -10,7 +10,6 @@ router.post('/api/temporadas', async (req, res) => {
     try {
         const result = await Temporada.create({temporada, estat, imatge,
             descripcio, enllac, episodis, valoracio})
-        console.log(result);
         res.send(result)
     } catch (e) {
         console.log(e)

@@ -7,10 +7,10 @@ router.get('/series/:id', async (req, res) => {
     let filter = {_id: id}
 
     try {
-        const taula = await Serie.find(filter)
+        const taula = await Serie.findOne(filter)
         const options = {
-            title: 'Serie  | Netflow',
-            serie: taula[0]
+            title: 'Serie ' + taula.nom + ' | Netflow',
+            serie: taula
         }
         res.render('./views_series/ver_detalles_series.ejs', options)
     } catch (e) {

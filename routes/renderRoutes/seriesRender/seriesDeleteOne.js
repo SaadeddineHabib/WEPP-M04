@@ -1,16 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const Serie = require("../../../models/Serie.js");
-const Temporada = require("../../../models/Temporada");
 
 router.delete('/series/:id', async (req, res) => {
     const id = req.params.id;
     let filter = {_id: id}
-    let filterToSelectSerieOnTemporadas = {"serie._id": id}
 
     try {
         const taula = await Serie.deleteOne(filter);
-
 
         if (taula) {
             res.redirect('/series')

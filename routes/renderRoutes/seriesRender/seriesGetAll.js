@@ -14,7 +14,7 @@ router.get('/series', async (req, res) => {
         res.render('./views_series/series.ejs', options)
     } catch (e) {
         console.log(e)
-        res.status(500).send('ERROR')
+        res.send('ERROR ' + e.message)
     }
 })
 

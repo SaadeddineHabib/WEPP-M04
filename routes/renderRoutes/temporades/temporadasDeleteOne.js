@@ -14,8 +14,9 @@ router.delete('/temporadas/:id', async (req, res) => {
 
     try {
         const serie = await Serie.findOne(filterTemporadaOnSerie);
+        await Temporada.deleteOne(filter)
+
         if (serie) {
-            await Temporada.deleteOne(filter)
             serie.temporadas.pull(filter);
             await serie.save();
         }

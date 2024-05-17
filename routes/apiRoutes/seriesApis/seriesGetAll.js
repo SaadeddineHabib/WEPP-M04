@@ -6,8 +6,7 @@ router.get('/api/series', async (req, res) => {
     let filter = {}
     try {
         const  series = await Serie.find(filter)
-        console.log(series)
-        res.send(series)
+        return res.send(series)
     } catch (e) {
         console.log(e)
         res.send('ERROR ' + e.message)

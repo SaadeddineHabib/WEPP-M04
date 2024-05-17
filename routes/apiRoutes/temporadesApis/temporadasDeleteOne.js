@@ -6,28 +6,29 @@ const Serie = require("../../../models/Serie.js");
 router.delete('/api/temporadas/:id', async (req, res) => {
     const id = req.params.id;
 
-    let filterTemporadaOnSerie = {
+    let filterSearchTemporadaInsideSerie = {
         "temporadas._id": id
     }
 
-    let filter = {_id: id}
+    let filterSearchByTemporadaId = {_id: id}
 
     try {
-        const serie = await Serie.findOne(filterTemporadaOnSerie);
+        const serie = await Serie.findOne(filterSearchTemporadaInsideSerie);
 
         if (serie) {
-            await Temporada.deleteOne(filter)
-            serie.temporadas.pull(filter);
+            await Temporada.deleteOne(filterSearchByTemporadaId)
+            serie.temporadas.pull(filterSearchByTemporadaId);
             await serie.save();
             res.send(serie);
         } else {
-            res.status(404).send({message: 'Temporada no encontrada'});
+            res.send({message: 'Temporada no encontrada'});
         }
     } catch (e) {
         console.log(e)
-        res.status(500).send({message: 'ERROR!' + e.message});
+        res.send({message: 'ERROR!' + e.message});
     }
 });
+
 
 module.exports = router;
 

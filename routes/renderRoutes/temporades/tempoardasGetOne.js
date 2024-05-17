@@ -8,10 +8,10 @@ router.get('/temporadas/:id', async (req, res) => {
     let filter = {_id: id}
 
     try {
-        const result = await Temporada.find(filter)
+        const temporada = await Temporada.findOne(filter)
         const options = {
-            title: 'Temporada | Netflow',
-            tempo: result[0]
+            title: 'Temporada  | Netflow',
+            tempo: temporada
         }
         res.render('./views_temporades/ver_detalles_temporades.ejs', options)
     } catch (e) {

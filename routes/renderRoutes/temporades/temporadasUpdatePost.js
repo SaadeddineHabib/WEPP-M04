@@ -7,7 +7,6 @@ router.post('/temporadas/update', async (req, res) => {
     const {temporada, estat, imatge, descripcio, enllac, episodis, valoracio, serieOfTempo} = req.body;
     const id = req.body.id
 
-    console.log(req.body)
 
     let filterToUpdate = {
         temporada: temporada,
@@ -23,7 +22,6 @@ router.post('/temporadas/update', async (req, res) => {
 
     try {
         const temporada = await Temporada.findOneAndUpdate(filterToSelect, filterToUpdate, {new: true})
-        console.log(temporada)
         await change_temporada_on_serie(temporada, serieOfTempo)
         res.redirect('/temporadas')
     } catch (e) {
@@ -42,13 +40,11 @@ async function change_temporada_on_serie(temporada, serieOfTempo) {
     let filtertoSelectSerie = {_id: serieOfTempo}
 
     const serie = await Serie.findOne(filterTemporadaOnSerie);
-    console.log(serie)
     if (serie === null) {
         const newSerie = await Serie.findOne(filtertoSelectSerie)
-        console.log(newSerie)
         newSerie.temporadas.push(temporada)
         await newSerie.save()
-    } else if (serieOfTempo !== serie._id) {
+    } else if (serie._id.toString() !== serieOfTempo) {
         serie.temporadas.pull(filterToSelect)
         const newSerie = await Serie.findOne(filtertoSelectSerie)
         newSerie.temporadas.push(temporada)

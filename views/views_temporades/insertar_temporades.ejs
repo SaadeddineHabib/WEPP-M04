@@ -10,10 +10,10 @@
 <h1>Insert temporada</h1>
 <main style="text-align: center">
     <form action="/temporadas" method="post">
-        <label for="series_id">Escull una serie per afegir la temporada:</label>
-        <select name="series_id" id="series_id">
-            <% temporadas.forEach( function (tempo){ %>
-                <option value="<%= tempo.series_id %>"><%= tempo.series_id %></option>
+        <label for="serie">Escull una serie per afegir la temporada:</label>
+        <select name="serie" id="serie">
+            <% series.forEach( function (serie){ %>
+                <option value="<%= serie._id %>"><%= serie.nom %></option>
             <% } ) %>
         </select>
         <br>
