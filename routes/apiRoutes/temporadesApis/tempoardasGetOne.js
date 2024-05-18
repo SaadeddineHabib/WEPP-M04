@@ -7,7 +7,8 @@ router.get('/api/temporadas/:id', async (req, res) => {
     let filter = {_id: id}
 
     try {
-        const temporada = await Temporada.find(filter)
+        const temporada = await Temporada.findOne(filter)
+        console.log(temporada)
         res.send(temporada)
     } catch (e) {
         console.log(e)

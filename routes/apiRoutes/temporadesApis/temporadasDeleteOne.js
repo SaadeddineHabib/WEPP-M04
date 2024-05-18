@@ -14,15 +14,13 @@ router.delete('/api/temporadas/:id', async (req, res) => {
 
     try {
         const serie = await Serie.findOne(filterSearchTemporadaInsideSerie);
+        await Temporada.deleteOne(filterSearchByTemporadaId)
 
         if (serie) {
-            await Temporada.deleteOne(filterSearchByTemporadaId)
             serie.temporadas.pull(filterSearchByTemporadaId);
             await serie.save();
-            res.send(serie);
-        } else {
-            res.send({message: 'Temporada no encontrada'});
         }
+        res.send({success: true, message: "S'ha eliminat correctament la temporada amb el id" + id});
     } catch (e) {
         console.log(e)
         res.send({message: 'ERROR!' + e.message});

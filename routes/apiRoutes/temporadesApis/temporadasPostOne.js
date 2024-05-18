@@ -3,12 +3,12 @@ var router = express.Router();
 const Temporada = require("../../../models/Temporada.js");
 
 router.post('/api/temporadas', async (req, res) => {
-    let {temporada, estat, imatge, descripcio,
+    let {_id, temporada, estat, imatge, descripcio,
         enllac, episodis, valoracio} = req.body
 
 
     try {
-        const result = await Temporada.create({temporada, estat, imatge,
+        const result = await Temporada.create({_id, temporada, estat, imatge,
             descripcio, enllac, episodis, valoracio})
         res.send(result)
     } catch (e) {

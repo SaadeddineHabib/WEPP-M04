@@ -7,8 +7,9 @@
     <%- include('../partials/header.ejs'); %>
 </header>
 <body>
+<a class="button" href="/temporadas/insert">Insert temporades</a>
 <h1> Temporades list</h1>
-<table>
+<table id="myTable" class="display">
     <thead>
     <tr>
         <th>Temporada</th>
@@ -56,8 +57,9 @@
         $(document).ready(function () {
             $('.delete-link').on('click', delete_group);
         });
-
     </script>
 </table>
+
+
 </body>
 </html>

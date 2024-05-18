@@ -6,17 +6,6 @@
         box-sizing: border-box;
     }
 
-    body {
-        background-color: black;
-    }
-
-    h1, h2, h3, h4, h5, h6, p, label {
-        color: white;
-    }
-
-    .border-bottom {
-        border-bottom: 1px blue solid;
-    }
 
     nav {
         text-align: center;
@@ -217,7 +206,7 @@
     td {
         font-size: large;
         padding: 10px;
-        color: white;
+        color: black;
     }
 
 
@@ -232,3 +221,10 @@
     }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" />
+<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

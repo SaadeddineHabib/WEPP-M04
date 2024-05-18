@@ -6,7 +6,7 @@ var logger = require('morgan');
 bodyParser = require("body-parser")
 swaggerJsdoc = require("swagger-jsdoc")
 swaggerUi = require("swagger-ui-express");
-    
+
 
 // API ENDPOINTS IMPORTS
 var indexRouter = require('./routes/index');
@@ -32,13 +32,13 @@ var temporadesRenderPostOne = require('./routes/renderRoutes/temporades/temporad
 var temporadesRenderUpdateGet = require('./routes/renderRoutes/temporades/temporadasUpdateGet')
 var temporadesRenderUpdatePost = require('./routes/renderRoutes/temporades/temporadasUpdatePost')
 
-var seriesRenderGetAll = require('./routes/renderRoutes/seriesRender/seriesGetAll')
-var seriesRenderGetOne = require('./routes/renderRoutes/seriesRender/seriesGetOne')
-var seriesRenderInsertOne = require('./routes/renderRoutes/seriesRender/seriesInsertOne')
-var seriesRenderDeleteOne = require('./routes/renderRoutes/seriesRender/seriesDeleteOne')
-var seriesRenderPostOne = require('./routes/renderRoutes/seriesRender/seriesPostOne')
-var seriesRenderUpdateGet = require('./routes/renderRoutes/seriesRender/seriesUpdateGet')
-var seriesRenderUpdatePost = require('./routes/renderRoutes/seriesRender/seriesUpdatePost')
+var seriesRenderGetAll = require('./routes/renderRoutes/series/seriesGetAll')
+var seriesRenderGetOne = require('./routes/renderRoutes/series/seriesGetOne')
+var seriesRenderInsertOne = require('./routes/renderRoutes/series/seriesInsertOne')
+var seriesRenderDeleteOne = require('./routes/renderRoutes/series/seriesDeleteOne')
+var seriesRenderPostOne = require('./routes/renderRoutes/series/seriesPostOne')
+var seriesRenderUpdateGet = require('./routes/renderRoutes/series/seriesUpdateGet')
+var seriesRenderUpdatePost = require('./routes/renderRoutes/series/seriesUpdatePost')
 // END RENDER ENDPOINTS IMPORT
 
 var aboutRouter = require('./routes/about')
@@ -127,338 +127,273 @@ app.use(temporadesRenderUpdatePost)
 // API DOCUMENTATION
 /**
  * @swagger
+ *
+ * tags:
+ *   - name: Series
+ *     description: Endpoints relacionados con las series
+ *   - name: Temporadas
+ *     description: Endpoints relacionados con las temporadas
+ *
+ * paths:
+ *   /api/series:
+ *     get:
+ *       summary: Obtener todas las series
+ *       tags:
+ *         - Series
+ *       responses:
+ *         '200':
+ *           description: Successful response
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: array
+ *                 items:
+ *                   $ref: '#/components/schemas/Serie'
+ *
+ *     post:
+ *       summary: Crear una nueva serie
+ *       tags:
+ *         - Series
+ *       requestBody:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Serie'
+ *       responses:
+ *         '200':
+ *           description: Successful response
+ *
+ *   /api/series/{id}:
+ *     get:
+ *       summary: Obtener una serie por ID
+ *       tags:
+ *         - Series
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *       responses:
+ *         '200':
+ *           description: Successful response
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Serie'
+ *
+ *     post:
+ *       summary: Actualizar una serie por ID
+ *       tags:
+ *         - Series
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *       requestBody:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Serie'
+ *       responses:
+ *         '200':
+ *           description: Successful response
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Serie'
+ *
+ *     delete:
+ *       summary: Eliminar una serie por ID
+ *       tags:
+ *         - Series
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *       responses:
+ *         '200':
+ *           description: Successful response
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/SuccessResponse'
+ *
+ *   /api/temporadas:
+ *
+ *     get:
+ *       summary: Obtener todas las temporadas
+ *       tags:
+ *         - Temporadas
+ *       responses:
+ *         '200':
+ *           description: Successful response
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: array
+ *                 items:
+ *                   $ref: '#/components/schemas/Temporada'
+ *
+ *     post:
+ *       summary: Crear una nueva temporada
+ *       tags:
+ *         - Temporadas
+ *       requestBody:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Temporada'
+ *       responses:
+ *         '200':
+ *           description: Successful response
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Temporada'
+ *
+ *   /api/temporadas/{id}:
+ *     get:
+ *       summary: Obtener una temporada por ID
+ *       tags:
+ *         - Temporadas
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *       responses:
+ *         '200':
+ *           description: Successful response
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Temporada'
+ *
+ *     post:
+ *       summary: Actualizar una temporada por ID
+ *       tags:
+ *         - Temporadas
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *       requestBody:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Temporada'
+ *       responses:
+ *         '200':
+ *           description: Successful response
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Temporada'
+ *
+ *     delete:
+ *       summary: Eliminar una temporada por ID
+ *       tags:
+ *         - Temporadas
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *       responses:
+ *         '200':
+ *           description: Successful response
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/SuccessResponse'
+ *
  * components:
  *   schemas:
- *     seriesRender:
+ *     Serie:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
- *           format: int64
- *           description: ID de la serie (autoincremental)
- *           example: 0
- *         Nom:
+ *         _id:
  *           type: string
- *           description: Nom de la serie
- *           example: Peaky blinders
- *         Estat:
+ *           example: 6467d4c5a9b0c3b7c8d4c5a9
+ *           required: true
+ *         nom:
  *           type: string
- *           description: Estat de la serie
- *           example: finalitzat
- *         Imatge:
+ *           example: Peaky Blinders
+ *           required: true
+ *         estat:
  *           type: string
- *           description: URL de la imatge de la serie
- *           example: https://cdn.webshopapp.com/shops/268192/files/433182623/the-peaky-blinders.jpg
- *         Descripcio:
+ *           example: Finalizada
+ *           required: true
+ *         imatge:
  *           type: string
- *           description: Descripciò de la serie
- *           example: "Peaky Blinders és una sèrie de televisió que segueix una família de gànsters a Birmingham, Anglaterra, després de la Primera Guerra Mundial."
- *         Idioma:
+ *           example: https://example.com/peaky-blinders.jpg
+ *           required: true
+ *         descripcio:
  *           type: string
- *           description: Idioma de la serie
- *           example: Anglès
- *         Enllac:
+ *           example: Una historia sobre una pandilla criminal que opera en Birmingham, Inglaterra, después de la Primera Guerra Mundial.
+ *           required: true
+ *         idioma:
  *           type: string
- *           description: Enllac de la serie
- *           example: https://m.imdb.com/title/tt2442560/?language=es-es
- *       required:
- *         - id
- *         - Nom
- *         - Imatge
- *         - Estat
+ *           example: Inglés
+ *           required: true
+ *         temporadas:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Temporada'
+ *           required: true
+ *         enllac:
+ *           type: string
+ *           example: https://www.peakyblinders.com
+ *           required: true
  *
- *     temporades:
+ *     Temporada:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
- *           description: ID de la temporada (autoincremental)
- *           example: 0
- *         IdSerie:
- *           type: integer
- *           description: ID de la serie a la que pertany la temporada
- *           example: 0
- *         Temporada:
+ *         _id:
+ *           type: string
+ *           example: 64680c2a1b2c3d4e5f6a7b8c
+ *           required: true
+ *         temporada:
  *           type: number
- *           format: int64
- *           description: Número de la temporada
  *           example: 1
- *         Estat:
+ *           required: true
+ *         estat:
  *           type: string
- *           description: Estat de la temporada
- *           example: finalitzat
- *         Imatge:
+ *           example: Finalizada
+ *           required: true
+ *         imatge:
  *           type: string
- *           description: URL de la imatge de la temporada
- *           example: https://m.media-amazon.com/images/M/MV5BMDI0NjZlOWEtOTA5MS00MGExLTk1ZDMtMzk0ZTE3YzYzZGIxXkEyXkFqcGdeQXVyNDg4MjkzNDk@._V1_.jpg
- *         Descripcio:
+ *           example: https://example.com/peaky-blinders-season1.jpg
+ *           required: true
+ *         descripcio:
  *           type: string
- *           description: Descripciò de la temporada
- *           example: Els Peaky Blinders tenen sota el seu control gairebé tot a Birmingham, Anglaterra, però un robatori mal executat podria canviar-ho tot.
- *         Enllac:
+ *           example: La temporada 1 de Peaky Blinders sigue a la pandilla Shelby en 1919, a medida que se expanden su imperio criminal en Birmingham.
+ *           required: true
+ *         enllac:
  *           type: string
- *           description: Enllac de la temporada
- *           example: https://m.imdb.com/title/tt2471500/?ref_=ttep_ep1
- *         Episodis:
+ *           example: https://www.peakyblinders.com/season1
+ *           required: true
+ *         episodis:
  *           type: number
- *           description: Número de episodios en la temporada
- *           example: https://m.imdb.com/title/tt2471500/?ref_=ttep_ep1
- *         Valoracio:
+ *           example: 6
+ *           required: true
+ *         valoracio:
  *           type: number
- *           description: Valoración de la temporada
- *           example: 8
- *       required:
- *         - id
- *         - IdSerie
- *         - Temporada
- *         - Imatge
- *         - Estat
- */
-
-/**
- * @swagger
- * tags:
- *   - name: temporades
- *     description: Access to all temporades
- *     externalDocs:
- *       description: Find out more
- *       url: /temporades
- *   - name: seriesRender
- *     description: Access to all seriesRender
- *     externalDocs:
- *       description: Find out more
- *       url: /seriesRender
- * paths:
- *   /api/temporades:
- *     get:
- *       tags:
- *         - temporades
- *       summary: Gets temporades list
- *       description: Get all the information of every temporada.
- *       responses:
- *         '200':
- *           description: successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 type: array
- *                 items:
- *                   $ref: '#/components/schemas/temporades'
- *         '500':
- *            description: Internal server error
- *
- *     post:
- *       tags:
- *         - temporades
- *       summary: Add a new temporada to plataform
- *       description: Add a new temporade to plataform
- *       requestBody:
- *         description: Create a new temporada in plataform
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/temporades'
- *         required: true
- *       responses:
- *         '200':
- *           description: Successful operation
- *         '400':
- *           description: A season without a related seriesRender cannot be added or the seriesRender with the id does not exist
- *         '500':
- *           description: Internal server error
- *
- *   /api/temporades/{temporadaId}:
- *     get:
- *       tags:
- *         - temporades
- *       summary: Find temporada by ID
- *       description: Returns a temporada
- *       parameters:
- *         - name: temporadaId
- *           in: path
- *           description: ID of remporada to return
+ *           example: 4.8
  *           required: true
- *           schema:
- *             type: integer
- *             format: int64
- *       responses:
- *         '200':
- *           description: successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/temporades'
- *         '400':
- *           description: Invalid ID supplied
- *         '404':
- *           description: Pet not found
- *         '500':
- *           description: Internal server error
- *
- *     put:
- *       tags:
- *         - temporades
- *       summary: Update an existing temporada
- *       description: Update an existing temporada by Id
- *       requestBody:
- *         description: Update an existent temporada in the plataform
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/temporades'
- *         required: true
- *       responses:
- *         '200':
- *           description: Successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/temporades'
- *         '400':
- *           description: Invalid ID supplied
- *         '404':
- *           description: temporada not found
- *         '500':
- *           description: Internal server error
- *
- *     delete:
- *       tags:
- *         - temporades
- *       summary: Deletes a temporada
- *       description: delete a temporada
- *       parameters:
- *         - name: temporadaId
- *           in: path
- *           description: temporada id to delete
- *           required: true
- *           schema:
- *             type: integer
- *             format: int64
- *       responses:
- *         '200':
- *           description: Successful operation
- *         '404':
- *           description: temporada not found
- *         '400':
- *           description: Invalid temporada value
- *
- *
- *   /api/seriesRender:
- *     get:
- *       tags:
- *         - seriesRender
- *       summary: Gets seriesRender list
- *       description: Get all the information of every seriesRender.
- *       responses:
- *         '200':
- *           description: successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 type: array
- *                 items:
- *                   $ref: '#/components/schemas/seriesRender'
- *         '500':
- *            description: Internal server error
- *
- *     post:
- *       tags:
- *         - seriesRender
- *       summary: Add a new seriesRender to plataform
- *       description: Add a new seriesRender to plataform
- *       requestBody:
- *         description: Create a new seriesRender in plataform
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/seriesRender'
- *         required: true
- *       responses:
- *         '200':
- *           description: Successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/seriesRender'
- *         '400':
- *           description: A season without a related seriesRender cannot be added or the seriesRender with the id does not exist
- *         '500':
- *           description: Internal server error
- *
- *   /api/seriesRender/{seriesId}:
- *     get:
- *       tags:
- *         - seriesRender
- *       summary: Find temporada by ID
- *       description: Returns a temporada
- *       parameters:
- *         - name: seriesId
- *           in: path
- *           description: ID of remporada to return
- *           required: true
- *           schema:
- *             type: integer
- *             format: int64
- *       responses:
- *         '200':
- *           description: successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/temporades'
- *         '400':
- *           description: Invalid ID supplied
- *         '404':
- *           description: Pet not found
- *         '500':
- *           description: Internal server error
- *
- *     put:
- *       tags:
- *         - seriesRender
- *       summary: Update an existing temporada
- *       description: Update an existing temporada by Id
- *       requestBody:
- *         description: Update an existent temporada in the plataform
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/temporades'
- *         required: true
- *       responses:
- *         '200':
- *           description: Successful operation
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/temporades'
- *         '400':
- *           description: Invalid ID supplied
- *         '404':
- *           description: temporada not found
- *         '500':
- *           description: Internal server error
- *
- *     delete:
- *       tags:
- *         - seriesRender
- *       summary: Deletes a temporada
- *       description: delete a temporada
- *       parameters:
- *         - name: temporadaId
- *           in: path
- *           description: temporada id to delete
- *           required: true
- *           schema:
- *             type: integer
- *             format: int64
- *       responses:
- *         '200':
- *           description: Successful operation
- *         '404':
- *           description: seriesRender not found
- *         '400':
- *           description: Invalid seriesRender value
+ *         serieOfTempo:
+ *           type: string
+ *           example: 6467d4c5a9b0c3b7c8d4c5a9
+ *           required: false
  *
  */
 // END API DOCUMENTATION

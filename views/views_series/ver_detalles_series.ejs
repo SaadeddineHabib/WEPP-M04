@@ -8,7 +8,7 @@
 </header>
 <body>
 <h1> Items list</h1>
-<table>
+<table id="myTable">
     <thead>
     <tr>
         <th>Nom</th>
@@ -41,9 +41,9 @@
 
         async function delete_group(event) {
             event.preventDefault();
-            let serieId = this.getAttribute('data-seriesRender-id')
+            let serieId = this.getAttribute('data-series-id')
             console.log(serieId)
-            var url = '/seriesRender/' + serieId;
+            var url = '/series/' + serieId;
             console.log('url' + url)
             try {
                 const response = await fetch(url, {
@@ -65,7 +65,7 @@
 <% if (serie.temporadas.length === 0) { %>
     <p>No te temporadas assignadas</p>
 <% } else { %>
-    <table>
+    <table id="myTable">
         <thead>
         <tr>
             <th>Temporada</th>
